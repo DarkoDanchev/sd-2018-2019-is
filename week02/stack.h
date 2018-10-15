@@ -129,12 +129,13 @@ public:
     }
     const T& top() const
     {
-        if(!this->isEmpty())
-        {
-            return this->topElement->data;
-        }
-        return NULL;
-    }
+       if(!this->isEmpty())
+       {
+           return this->topElement->data;
+       }
+       throw "Empty stack";
+
+	}
     bool isEmpty() const
     {
         return this->size == 0;
@@ -145,3 +146,18 @@ public:
         return this->size;
     }
 };
+
+int main()
+{
+    Stack<int> st;
+    st.push(5);
+    try
+    {
+        int top = st.top();
+        cout<<top<<endl;
+    }
+    catch(const char* msg)
+    {
+        cout<<msg;
+    }
+}
