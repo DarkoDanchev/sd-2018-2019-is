@@ -65,8 +65,7 @@ public:
         {
             return this->first->data;
         }
-
-        return NULL;
+        throw "Empty queue";
     }
     const T& back() const
     {
@@ -74,6 +73,7 @@ public:
         {
             return this->last->data;
         }
+        throw "Empty queue";
     }
     void pop()
     {
@@ -87,7 +87,7 @@ public:
     }
     void push(const T& data)
     {
-        Node<T>* newNode = new Node(data);
+        Node<T>* newNode = new Node<T>(data);
         if(empty())
         {
             this->first = newNode;
@@ -113,3 +113,18 @@ public:
         this->erase();
     }
 };
+
+int main()
+{
+    Queue<int> q;
+    //q.push(5);
+    try
+    {
+        int front = q.front();
+        cout<<front<<endl;
+    }
+    catch(const char* msg)
+    {
+        cout<<msg<<endl;
+    }
+}
