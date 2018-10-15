@@ -39,6 +39,7 @@ private:
             temp2 = temp2->next;
             temp1 = temp1->next;
         }
+		this->size = other.size;
 
         /*
             Not optimal
