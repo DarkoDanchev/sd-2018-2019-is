@@ -8,7 +8,7 @@ struct Node
     T data;
     Node<T>* next;
 
-    Node(const T& data, Node<T>* next)
+    Node(const T& data, Node<T>* next = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -233,19 +233,17 @@ public:
     }
 
     iterator insert(iterator position,const T& value) {
-      if(position.current != nullptr)
+      if(position != nullptr)
       {
         Node<T>* newNode = new Node<T>(value, position.current->next);
         if (position.current == last) last = newNode;
         position.current->next = newNode;
+        this->count++;
 
+        return position;
       }
-      else
-      {
-        this->push_back(value);
-      }
+      throw "Cannot insert at position";
 
-      return position;
     }
 
     iterator erase(iterator position) {
@@ -263,13 +261,24 @@ int main()
 
   LinkedList<int> v;
 
-  //v.push_back(5);
+  v.push_back(5);
 
-  v.insert(v.end(),2);
-  v.insert(v.end(),4);
-  v.insert(v.end(),5);
+  //v.insert(v.begin(),2);
+  try
+  {
+    v.insert(v.end(),4);
+    v.insert(v.end(),5);
+  }
+  catch(const char* msg)
+  {
+    cout<<msg<<endl;
+  }
+  //v.insert(v.begin(),5);
 
-  auto iter = v.begin();
+
+  cout<<"Size: "<<v.size()<<" Begining: "<<*v.insert(v.end(),2)<<endl;
+
+  /*auto iter = v.begin();
   iter = v.insert(iter, 1);
   iter++;
   v.insert(iter++,3);
@@ -278,10 +287,10 @@ int main()
 
   iter = v.begin();
   iter++;
-  v.erase(iter);
+  //v.erase(iter);*/
 
-  for(auto itr = v.begin();itr != v.end();itr++)
-    std::cout << *itr << std::endl;
+  /*for(auto itr = v.begin();itr != v.end();++itr)
+    std::cout << *itr << std::endl;*/
 
   return 0;
 }
